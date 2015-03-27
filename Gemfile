@@ -47,7 +47,6 @@ gem 'monetize'
 gem 'high_voltage', '~> 2.2.1'
 gem 'public_suffix'
 
-
 group :development, :test do
   gem 'pry-rails'
   gem 'pry-byebug'
@@ -56,4 +55,5 @@ group :development, :test do
   gem 'railroady'
   gem 'rspec-rails'
   gem 'html2haml'
+  gem 'sprockets_better_errors'
 end
