@@ -1,0 +1,14 @@
+%h1 BOOKSCANNER
+
+= form_for(@home_screen_wishlist) do |f|
+  .field
+    = f.label :wishlist_id
+    %br
+    = f.text_field :wishlist_id
+
+  .field
+    = f.label :threshold
+    %br
+    = f.text_field :threshold
+
+  = f.submit 'Add Wishlist'

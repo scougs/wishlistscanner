@@ -1,0 +1,20 @@
+%h1 Wishlist Scan Details
+
+%h4
+  Wishlist Kindle Items:
+  = @wishlist.last_scan_array.count
+
+%h4
+  Wishlist Price Limit:
+  = @wishlist.threshold
+
+%h4
+  Wishlist Items Under Price Limit
+  = @wishlist_items.count
+
+%p
+  - @wishlist_items.each do |item|
+    %ul#selector
+      %li
+        = link_to item[:title], item[:link]
+        = item[:price]
