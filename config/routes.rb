@@ -16,4 +16,5 @@ Rails.application.routes.draw do
       get 'run_scan', to: 'wishlists#run_scan', as: :run_scan
     end
   end
+  get 'first_scan', to: 'wishlists#first_scan', as: :first_scan
 end

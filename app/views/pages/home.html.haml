@@ -1,14 +1,20 @@
-%h1 BOOKSCANNER
+%h1 KindleScanner
 
-= form_for(@home_screen_wishlist) do |f|
+= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+  = devise_error_messages!
   .field
-    = f.label :wishlist_id
+    = f.label :email
     %br
-    = f.text_field :wishlist_id
+    = f.email_field :email, autofocus: true
 
   .field
-    = f.label :threshold
+    = f.label :password
+    - if @validatable
+      %em
+        (#{@minimum_password_length} characters minimum)
     %br
-    = f.text_field :threshold
+    = f.password_field :password, autocomplete: "off"
 
-  = f.submit 'Add Wishlist'
+  .actions
+    = f.submit "Sign up"
+= render "devise/shared/links"

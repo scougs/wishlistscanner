@@ -13,8 +13,8 @@
   = @wishlist_items.count
 
 %p
-  - @wishlist_items.each do |item|
+  - @wishlist_items.sort_by { |hsh| hsh[:price] }.each do |item|
     %ul#selector
       %li
-        = link_to item[:title], item[:link]
+        = link_to item[:title], item[:link], :target => "_blank"
         = item[:price]

@@ -60,6 +60,11 @@ class WishlistsController < ApplicationController
   end
 
 
+  def first_scan
+    binding.pry
+  end
+
+
   private
 
     def wishlist_params
