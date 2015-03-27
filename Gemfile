@@ -46,6 +46,7 @@ gem 'mechanize'
 gem 'monetize'
 gem 'high_voltage', '~> 2.2.1'
 gem 'public_suffix'
+gem 'rails_12factor', group: :production
 
 group :development, :test do
   gem 'pry-rails'
