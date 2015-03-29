@@ -1,17 +1,11 @@
+= render partial: 'layouts/new_wishlist_modal'
+
 %h1 DASHBOARD
 
 %h3
   = current_user.email
-%p
-  - if user_signed_in?
-    %li
-      = link_to('Logout', destroy_user_session_path, :method => :delete)
-  - else
-    %li
-      = link_to('Login', new_user_session_path)
 
 %p
-- current_user.wishlists.each do |wishlist|
   %table
     %thead
       %tr
@@ -24,45 +18,30 @@
         %th
         %th
         %th
-    %tbody
-      %tr
-        %td
-          = wishlist.wishlist_id
-        %td
-          = wishlist.threshold
-        %td
-          = wishlist.wishlist_tld
-
-        - if wishlist.last_scan_date.blank?
-          %td Never
-          %td Never
-        - else
+    - current_user.wishlists.each do |wishlist|
+      %tbody
+        %tr
           %td
-            = wishlist.last_scan_date
+            = wishlist.wishlist_id
           %td
-            = wishlist.last_scan_array.count
-        %td
-          = link_to 'Run Scan', run_scan_wishlist_path(wishlist.id)
-        %td
-          - if wishlist.last_scan_date.present?
-            = link_to 'View Details', wishlist_path(wishlist.id)
-        %td
-          = link_to 'Edit', edit_wishlist_path(wishlist.id)
-        %td
-          = link_to "Delete Wishlist", wishlist, method: :delete, data: {confirm: "Are you sure?"}
+            = wishlist.threshold
+          %td
+            = wishlist.wishlist_tld
 
-%h3 Add New Wishlist
-
-%p
-  = form_for(@create_new_wishlist) do |f|
-    .field
-      = f.label :wishlist_id
-      %br
-      = f.text_field :wishlist_id
-
-    .field
-      = f.label :threshold
-      %br
-      = f.text_field :threshold
-
-    = f.submit 'Add Wishlist'
+          - if wishlist.last_scan_date.blank?
+            %td Never
+            %td Never
+          - else
+            %td
+              = wishlist.last_scan_date
+            %td
+              = wishlist.last_scan_array.count
+          %td
+            = link_to 'Run Scan', run_scan_wishlist_path(wishlist.id)
+          %td
+            - if wishlist.last_scan_date.present?
+              = link_to 'View Details', wishlist_path(wishlist.id)
+          %td
+            = link_to 'Edit', edit_wishlist_path(wishlist.id)
+          %td
+            = link_to "Delete Wishlist", wishlist, method: :delete, data: {confirm: "Are you sure?"}

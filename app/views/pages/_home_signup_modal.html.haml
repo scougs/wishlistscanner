@@ -1,0 +1,61 @@
+#sign_up_modal.modal
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+        %h2.modal-title Sign Up
+        %br
+        %br
+
+      .modal-body
+        %p
+          All we need is an email address and a password. This is so you can login later and update your details, add new wishlists, or stop the emails all together.
+        %br
+
+        = form_for(resource, as: resource_name, url: registration_path(resource_name), :html => { :class => 'form'}) do |f|
+          = devise_error_messages!
+          %fieldset
+            .form-group
+              = f.email_field :email, :class => "form-control input-lg floating-label", :type => "email", :placeholder => "Email"
+            .form-group
+              = f.password_field :password, :class => "form-control input-lg floating-label", :type => "password", :placeholder => "Password"
+            .form-group.modal-form-button
+              %button.btn.btn-primary.btn-block.btn-lg{:type => "submit"}
+                Sign Me Up
+
+      .modal-footer#sign-up-modal-footer
+        %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
+
+
+#sign_in_modal.modal
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+        %h2.modal-title Sign In
+        %br
+
+      .modal-body
+        = form_tag user_session_path do
+          %form.form.login-form{:action => "./index.html", :method => "POST"}
+            .form-group
+              = text_field_tag 'user[email]', nil, :placeholder => "Email Address", class: "form-control input-lg floating-label"
+
+            .form-group
+              = password_field_tag 'user[password]', nil, :placeholder => "Password", class: "form-control input-lg floating-label"
+
+            .form-group.clearfix
+              .pull-left
+                .checkbox
+                  %label.checkbox-inline
+                    = check_box_tag 'user[remember_me]', :type => "checkbox"
+                    Remember me
+
+            .form-group
+              %button.btn.btn-primary.btn-block.btn-lg{:tabindex => "4", :type => "submit"}
+                Sign In
+
+
+      .modal-footer
+        %a{:href => "#"} Forgot Password?
+        %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close

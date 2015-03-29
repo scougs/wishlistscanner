@@ -1,0 +1,25 @@
+/* ----------------------------------------------- */
+/* !Modal Styles */
+/* ----------------------------------------------- */
+
+.modal-form-button {
+  margin-top: 30px;
+}
+
+.checkbox-inline {
+  color: #666;
+}
+
+// Floating Label Modifications
+.form-control-wrapper .floating-label {
+  opacity: 1;
+}
+
+.form-control-wrapper .form-control.input-lg:focus ~ .floating-label,
+.form-control-wrapper .form-control.input-lg:not(.empty) ~ .floating-label {
+  font-size: 14px;
+}
+
+#second_sentence {
+  font-size: 16px;
+}

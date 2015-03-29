@@ -8,9 +8,11 @@
     = csrf_meta_tags
 
   %body
+    - if current_user
+      = render partial: 'layouts/navbar'
     .container.content
-      %p.notice
-        = notice
-      %p.alert
-        = alert
-        = yield
+      -# %p.notice
+      -#   = notice
+      -# %p.alert
+      -#   = alert
+      = yield

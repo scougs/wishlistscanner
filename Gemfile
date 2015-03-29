@@ -56,5 +56,4 @@ group :development, :test do
   gem 'railroady'
   gem 'rspec-rails'
   gem 'html2haml'
-  gem 'sprockets_better_errors'
 end

@@ -1,20 +1,27 @@
-%h1 KindleScanner
+= render partial: 'pages/home_signup_modal'
+%br
+%br
+.jumbotron
+  %h1 KindleScanner
+  %p.text-primary Ever wondered when a Kindle book on your Amazon Wishlist drops in price?
+  %p#second_sentence KindleScanner scans your Amazon Wishlist for your Kindle books, compares them to your price point, and then sends you an email listing the books below your price.
+  %p
+    = link_to "Sign Up", "#", class: "sign-up-button btn btn-primary btn-lg"
+    = link_to "Sign In", "#", class: "sign-in-button btn btn-primary btn-flat btn-lg"
 
-= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-  = devise_error_messages!
-  .field
-    = f.label :email
-    %br
-    = f.email_field :email, autofocus: true
 
-  .field
-    = f.label :password
-    - if @validatable
-      %em
-        (#{@minimum_password_length} characters minimum)
-    %br
-    = f.password_field :password, autocomplete: "off"
+:javascript
+  $(function() {
+    $('.sign-up-button').click(function() {
+      $('#sign_up_modal').modal('show');
+      return false;
+    });
+  });
 
-  .actions
-    = f.submit "Sign up"
-= render "devise/shared/links"
+  $(function() {
+    $('.sign-in-button').click(function() {
+      $('#sign_in_modal').modal('show');
+      return false;
+    });
+  });
+

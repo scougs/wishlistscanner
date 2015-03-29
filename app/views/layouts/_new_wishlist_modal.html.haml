@@ -1,0 +1,28 @@
+#new_wishlist_modal.modal
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+        %h2.modal-title Sign Up
+        %br
+        %br
+
+      .modal-body
+        = form_for(@create_new_wishlist) do |f|
+          %fieldset
+            .form-group
+              = f.text_field :wishlist_id, :class => "form-control input-lg floating-label", :placeholder => "Wishlist URL"
+
+          .form-group
+          .form-group
+            .input-group
+              %span.input-group-addon £/$
+              = f.text_field :threshold, :class => "form-control input-lg floating-label", :placeholder => "Price Threshold"
+
+
+          .form-group.modal-form-button
+            %button.btn.btn-primary.btn-block.btn-lg{:type => "submit"}
+              Add Wishlist
+
+      .modal-footer
+        %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close

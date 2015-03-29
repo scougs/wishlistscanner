@@ -11,9 +11,14 @@
  * file per style scope.
  *
  *= require bootstrap
+ *= require material
+ *= require ripples
+ *= require roboto
  *= require font-awesome
  *= require users
  *= require wishlists
+ *= require custom
+ *
  *
  *= require_tree .
  *= require_self
