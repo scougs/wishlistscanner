@@ -1,5 +1,3 @@
-= render partial: 'layouts/new_wishlist_modal'
-
 - if current_user.wishlists.count < 1
   :javascript
     $(window).load(function(){
@@ -13,35 +11,39 @@
   - current_user.wishlists.each do |wishlist|
 
     .list-group-item
-      .row-action-primary
-        %i.mdi-file-folder
+      .row-picture
+        %img.circle{:alt => "Amazon Icon", :src => image_path('amazon_logo.jpg')}
       .row-content
         .least-content
           - if wishlist.last_scan_date.blank?
             Not Yet Scanned
           - else
-            = wishlist.last_scan_array.count
-            Items Scanned
+            Last Scan:
+            = wishlist.last_scan_date.strftime("%d %b %Y")
 
         %h4.list-group-item-heading
-          - if wishlist.last_scan_date.present?
-            = link_to "#{wishlist.wishlist_id}", wishlist_path(wishlist.id)
-          - else
+          %a{:href => "#{wishlist.wishlist_full_url}", :target => "_blank"}
+            ID:
             = wishlist.wishlist_id
 
         %p.list-group-item-text
           Threshold:
           %strong
-            £
             = wishlist.threshold_to_float
-        %p.list-group-item-text
-          - if wishlist.last_scan_date.blank?
+        - if wishlist.last_scan_date.blank?
+          %p.list-group-item-text
             Not Yet Scanned
-          - else
-            Last Scan Run:
-            = wishlist.last_scan_date.strftime("%d %B %Y at %I:%M%p")
+        - else
+          %p.list-group-item-text
+            Wishlist Size:
+            = wishlist.last_scan_array.count
+            Items
         %p
-          = link_to 'Scan Now', run_scan_wishlist_path(wishlist.id)
-          = link_to 'Edit', edit_wishlist_path(wishlist.id)
-          = link_to "Delete Wishlist", wishlist, method: :delete, data: {confirm: "Are you sure?"}
+          = link_to 'View Details', wishlist_path(wishlist.id), class: "btn btn-sm btn-primary"
+
+          = link_to 'Edit', edit_wishlist_path(wishlist.id), class: "btn btn-sm btn-flat btn-default"
+
+          = link_to "Delete", wishlist, method: :delete, class: "btn btn-sm btn-flat btn-danger", data: {confirm: "Are you sure you want to delete this wishlist?"}
+
     .list-group-separator
+

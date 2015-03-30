@@ -52,11 +52,13 @@ class Wishlist < ActiveRecord::Base
 
 
   def wishlist_show_items
-    wishlist_scrape_array = last_scan_array
-    items_under_threshold_array = []
-    wishlist_scrape_array.each do |item|
-      if item[:price] != "Unavailable" && item[:price].cents <= threshold
-        items_under_threshold_array << item
+    if last_scan_date.present?
+      wishlist_scrape_array = last_scan_array
+      items_under_threshold_array = []
+      wishlist_scrape_array.each do |item|
+        if item[:price] != "Unavailable" && item[:price].cents <= threshold
+          items_under_threshold_array << item
+        end
       end
     end
     return items_under_threshold_array
@@ -89,6 +91,11 @@ class Wishlist < ActiveRecord::Base
     wishlist_scrape(page, wishlist_scrape_array)
 
     return wishlist_scrape_array
+  end
+
+
+  def wishlist_full_url
+    "http://www.amazon." + wishlist_tld + "/gp/registry/wishlist/" + wishlist_id
   end
 
 

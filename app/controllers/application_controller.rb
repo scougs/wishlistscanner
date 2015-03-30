@@ -5,6 +5,11 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_devise_permitted_parameters, if: :devise_controller?
 
+  before_filter :set_wishlist_variable
+
+  def set_wishlist_variable
+    @create_new_wishlist = Wishlist.new
+  end
 
     protected
 

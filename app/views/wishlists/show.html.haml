@@ -1,20 +1,33 @@
 %h1 Wishlist Scan Details
 
-%h4
-  Wishlist Kindle Items:
-  = @wishlist.last_scan_array.count
+%br
+= link_to 'Run Scan Now', run_scan_wishlist_path(@wishlist.id), class: "btn btn-primary"
+%br
 
-%h4
-  Wishlist Price Limit:
-  = @wishlist.threshold
+- if @wishlist.last_scan_date.present?
+  %h4
+    Wishlist Kindle Items:
+    = @wishlist.last_scan_array.count
 
-%h4
-  Wishlist Items Under Price Limit
-  = @wishlist_items.count
+  %h4
+    Wishlist Price Limit:
+    = @wishlist.threshold_to_float
 
-%p
-  - @wishlist_items.sort_by { |hsh| hsh[:price] }.each do |item|
-    %ul#selector
-      %li
-        = link_to item[:title], item[:link], :target => "_blank"
-        = item[:price]
+  %h4
+    Wishlist Items Under Price Limit:
+    = @wishlist_items.count
+
+  %br
+  .panel.panel-primary
+    .panel-heading
+      %h3.panel-title Items Below Threshold
+    .panel-body
+      - @wishlist_items.sort_by { |hsh| hsh[:price] }.each do |item|
+        %ul#selector
+          %li
+            = link_to item[:title], item[:link], :target => "_blank"
+            %br
+            = item[:price]
+
+- else
+  %p No scan has been run on this wishlist. The details will appear here as soon as a scan is run.
