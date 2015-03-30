@@ -17,9 +17,30 @@
 
 .form-control-wrapper .form-control.input-lg:focus ~ .floating-label,
 .form-control-wrapper .form-control.input-lg:not(.empty) ~ .floating-label {
+  top: -9px;
   font-size: 14px;
 }
+
+
+/* ----------------------------------------------- */
+/* !Home Screen */
+/* ----------------------------------------------- */
 
 #second_sentence {
   font-size: 16px;
 }
+
+
+/* ----------------------------------------------- */
+/* !Dashboard */
+/* ----------------------------------------------- */
+
+#threshold_input {
+  font-size: 16px;
+  color: #666;
+}
+
+
+
+
+

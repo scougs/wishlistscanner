@@ -1,3 +1,6 @@
+require 'action_view'
+include ActionView::Helpers::NumberHelper
+
 class Wishlist < ActiveRecord::Base
 
 # Relationships
@@ -5,6 +8,7 @@ class Wishlist < ActiveRecord::Base
 
   # Before Filters
   before_save :extract_wishlist_details
+  before_save :set_wishlist_threshold
 
   serialize :last_scan_array
 
@@ -28,6 +32,22 @@ class Wishlist < ActiveRecord::Base
     extracted_wishlist_domain = url.match(".*\:\/\/?([^\/]+)")[1]
     extracted_wishlist_tld = PublicSuffix.parse(extracted_wishlist_domain).tld
     write_attribute(:wishlist_tld, extracted_wishlist_tld)
+  end
+
+
+  def threshold_float
+  end
+
+
+  def set_wishlist_threshold
+    binding.pry
+  end
+
+
+  def threshold_to_float
+    e = threshold.to_f/100
+    e = number_with_precision(e, precision: 2)
+    return e
   end
 
 

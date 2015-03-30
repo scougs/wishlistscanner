@@ -3,21 +3,29 @@
     .modal-content
       .modal-header
         %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
-        %h2.modal-title Sign Up
+        %h2.modal-title Add An Amazon Wishlist
         %br
         %br
 
       .modal-body
+        %p
+          To add an wishlist. Go to your
+          %a{:href => "http://www.amazon.co.uk/gp/registry/wishlist/ref=nav_wish_list", :target => "_blank"} Amazon Wish List
+          page and click on the wishlist you want to track, from the list on the left.
+        %p
+          When that wishlist opens, you simply copy the web address from your web browser and paste it into the form below.
+
         = form_for(@create_new_wishlist) do |f|
           %fieldset
             .form-group
               = f.text_field :wishlist_id, :class => "form-control input-lg floating-label", :placeholder => "Wishlist URL"
 
           .form-group
-          .form-group
+            %p
+              The last step is to simply set the price limit for the wishlist. Any Kindle books that are equal or below this price will be found and sent to you.
             .input-group
-              %span.input-group-addon £/$
-              = f.text_field :threshold, :class => "form-control input-lg floating-label", :placeholder => "Price Threshold"
+              %span.input-group-addon#threshold_input £/$
+              = f.number_field :threshold_float, :class => "form-control input-lg floating-label", :placeholder => "Price Threshold - for example 5.00 or 0.99", :type => "number", :step => '0.01'
 
 
           .form-group.modal-form-button

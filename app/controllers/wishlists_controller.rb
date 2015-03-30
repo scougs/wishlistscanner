@@ -38,7 +38,9 @@ class WishlistsController < ApplicationController
 
 
   def create
-    wishlist = current_user.wishlists.new(wishlist_params)
+    new_wishlist =  { :wishlist_id => wishlist_params[:wishlist_id] }
+    new_wishlist[:threshold] = (wishlist_params[:threshold_float].to_f*100).to_i
+    wishlist = current_user.wishlists.new(new_wishlist)
     if wishlist.save
       redirect_to dashboard_path(current_user), notice: 'Wishlist successfully created'
     else
@@ -68,7 +70,7 @@ class WishlistsController < ApplicationController
   private
 
     def wishlist_params
-      params.require(:wishlist).permit( :wishlist_id, :threshold, :wishlist_url, :last_scan_array, :last_scan_date )
+      params.require(:wishlist).permit( :wishlist_id, :threshold, :wishlist_url, :last_scan_array, :last_scan_date, :threshold_float )
     end
 
 end

@@ -1,47 +1,47 @@
 = render partial: 'layouts/new_wishlist_modal'
 
+- if current_user.wishlists.count < 1
+  :javascript
+    $(window).load(function(){
+        $('#new_wishlist_modal').modal('show');
+    });
+
 %h1 DASHBOARD
+%br
 
-%h3
-  = current_user.email
+.list-group
+  - current_user.wishlists.each do |wishlist|
 
-%p
-  %table
-    %thead
-      %tr
-        %th Wishlist id
-        %th Threshold
-        %th Domain
-        %th Last Scan Date
-        %th Last Scan Count
-        %th
-        %th
-        %th
-        %th
-    - current_user.wishlists.each do |wishlist|
-      %tbody
-        %tr
-          %td
-            = wishlist.wishlist_id
-          %td
-            = wishlist.threshold
-          %td
-            = wishlist.wishlist_tld
-
+    .list-group-item
+      .row-action-primary
+        %i.mdi-file-folder
+      .row-content
+        .least-content
           - if wishlist.last_scan_date.blank?
-            %td Never
-            %td Never
+            Not Yet Scanned
           - else
-            %td
-              = wishlist.last_scan_date
-            %td
-              = wishlist.last_scan_array.count
-          %td
-            = link_to 'Run Scan', run_scan_wishlist_path(wishlist.id)
-          %td
-            - if wishlist.last_scan_date.present?
-              = link_to 'View Details', wishlist_path(wishlist.id)
-          %td
-            = link_to 'Edit', edit_wishlist_path(wishlist.id)
-          %td
-            = link_to "Delete Wishlist", wishlist, method: :delete, data: {confirm: "Are you sure?"}
+            = wishlist.last_scan_array.count
+            Items Scanned
+
+        %h4.list-group-item-heading
+          - if wishlist.last_scan_date.present?
+            = link_to "#{wishlist.wishlist_id}", wishlist_path(wishlist.id)
+          - else
+            = wishlist.wishlist_id
+
+        %p.list-group-item-text
+          Threshold:
+          %strong
+            £
+            = wishlist.threshold_to_float
+        %p.list-group-item-text
+          - if wishlist.last_scan_date.blank?
+            Not Yet Scanned
+          - else
+            Last Scan Run:
+            = wishlist.last_scan_date.strftime("%d %B %Y at %I:%M%p")
+        %p
+          = link_to 'Scan Now', run_scan_wishlist_path(wishlist.id)
+          = link_to 'Edit', edit_wishlist_path(wishlist.id)
+          = link_to "Delete Wishlist", wishlist, method: :delete, data: {confirm: "Are you sure?"}
+    .list-group-separator
