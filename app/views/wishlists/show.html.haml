@@ -1,8 +1,14 @@
+= render partial: 'wishlists/edit_wishlist_modal'
+
 %h1 Wishlist Scan Details
 
 %br
 = link_to 'Run Scan Now', run_scan_wishlist_path(@wishlist.id), class: "btn btn-primary"
 %br
+
+= link_to 'Edit', edit_wishlist_path(@wishlist.id), class: "wishlist-edit-button btn btn-primary btn-sm"
+
+= link_to "Delete", @wishlist, method: :delete, class: "btn btn-sm btn-danger", data: {confirm: "Are you sure you want to delete this wishlist?"}
 
 - if @wishlist.last_scan_date.present?
   %h4
@@ -17,11 +23,22 @@
     Wishlist Items Under Price Limit:
     = @wishlist_items.count
 
+  %h4
+    Scan Type:
+    - if @wishlist.kindle_only == true
+      Kindle Books Only
+    - else
+      All Wishlist Items
+
+  %h4
+    Email Frequency:
+    = @wishlist.frequency
+
   %br
   .panel.panel-primary
     .panel-heading
       %h3.panel-title Items Below Threshold
-    .panel-body
+    .panel-body#wishlist-scan-results
       - @wishlist_items.sort_by { |hsh| hsh[:price] }.each do |item|
         %ul#selector
           %li
@@ -31,3 +48,12 @@
 
 - else
   %p No scan has been run on this wishlist. The details will appear here as soon as a scan is run.
+
+
+:javascript
+  $(function() {
+    $('.wishlist-edit-button').click(function() {
+      $('#edit_wishlist_modal').modal('show');
+      return false;
+    });
+  });

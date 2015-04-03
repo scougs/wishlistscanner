@@ -17,7 +17,7 @@
 
 .form-control-wrapper .form-control.input-lg:focus ~ .floating-label,
 .form-control-wrapper .form-control.input-lg:not(.empty) ~ .floating-label {
-  top: -9px;
+  top: -11px;
   font-size: 14px;
 }
 
@@ -38,6 +38,15 @@
 #threshold_input {
   font-size: 16px;
   color: #666;
+}
+
+
+/* ----------------------------------------------- */
+/* !Wishlist Show */
+/* ----------------------------------------------- */
+
+#wishlist-scan-results {
+  font-size: 16px;
 }
 
 

@@ -37,6 +37,7 @@
 
       .modal-body
         = form_tag user_session_path do
+          = devise_error_messages!
           %form.form.login-form{:action => "./index.html", :method => "POST"}
             .form-group
               = text_field_tag 'user[email]', nil, :placeholder => "Email Address", class: "form-control input-lg floating-label"
@@ -57,5 +58,32 @@
 
 
       .modal-footer
-        %a{:href => "#"} Forgot Password?
+        = link_to "Forgot Password?", "#", class: "forgot-password-button btn btn-flat btn-primary btn-sm"
+        %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
+
+
+#forgot_password_modal.modal
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+        %h2.modal-title Forgot Your Password?
+        %br
+
+      .modal-body
+        %h4
+          No problem.
+        %p
+          Just enter your email below and we will send you instructions on how to reset your password.
+        %br
+        = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+          = devise_error_messages!
+          .form-group
+            = f.email_field :email, :class => "form-control input-lg floating-label", :type => "email", :placeholder => "Email"
+
+          .form-group
+            %button.btn.btn-primary.btn-block.btn-lg{:type => "submit"}
+              Reset My Password
+
+      .modal-footer
         %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close

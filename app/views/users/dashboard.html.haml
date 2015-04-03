@@ -23,7 +23,7 @@
 
         %h4.list-group-item-heading
           %a{:href => "#{wishlist.wishlist_full_url}", :target => "_blank"}
-            ID:
+            WISHLIST ID:
             = wishlist.wishlist_id
 
         %p.list-group-item-text
@@ -38,12 +38,12 @@
             Wishlist Size:
             = wishlist.last_scan_array.count
             Items
+
+        - if wishlist.kindle_only == true
+          %p.list-group-item-text
+            Kindle Books Only
+
         %p
           = link_to 'View Details', wishlist_path(wishlist.id), class: "btn btn-sm btn-primary"
 
-          = link_to 'Edit', edit_wishlist_path(wishlist.id), class: "btn btn-sm btn-flat btn-default"
-
-          = link_to "Delete", wishlist, method: :delete, class: "btn btn-sm btn-flat btn-danger", data: {confirm: "Are you sure you want to delete this wishlist?"}
-
     .list-group-separator
-

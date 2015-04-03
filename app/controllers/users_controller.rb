@@ -9,6 +9,7 @@ class UsersController < ApplicationController
     end
   end
 
+
   def dashboard
     @create_new_wishlist = Wishlist.new
   end

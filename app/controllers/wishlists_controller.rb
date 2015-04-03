@@ -17,9 +17,13 @@ class WishlistsController < ApplicationController
 
 
   def update
+    edit_wishlist = wishlist_params
+    edit_wishlist[:threshold] = (wishlist_params[:threshold_float].to_f*100).to_i
+    edit_wishlist.except!(:threshold_float)
+
     wishlist = Wishlist.find(params[:id])
-    if wishlist.update_attributes(wishlist_params)
-      redirect_to user_path, notice: 'Wishlist successfully updated'
+    if wishlist.update_attributes(edit_wishlist)
+      redirect_to wishlist_path, notice: 'Wishlist successfully updated'
     else
       render action: 'edit'
     end
@@ -38,8 +42,9 @@ class WishlistsController < ApplicationController
 
 
   def create
-    new_wishlist =  { :wishlist_id => wishlist_params[:wishlist_id] }
+    new_wishlist = wishlist_params
     new_wishlist[:threshold] = (wishlist_params[:threshold_float].to_f*100).to_i
+    new_wishlist.except!(:threshold_float)
     wishlist = current_user.wishlists.new(new_wishlist)
     if wishlist.save
       redirect_to dashboard_path(current_user), notice: 'Wishlist successfully created'
@@ -70,7 +75,7 @@ class WishlistsController < ApplicationController
   private
 
     def wishlist_params
-      params.require(:wishlist).permit( :wishlist_id, :threshold, :wishlist_url, :last_scan_array, :last_scan_date, :threshold_float )
+      params.require(:wishlist).permit( :wishlist_id, :threshold, :wishlist_url, :last_scan_array, :last_scan_date, :threshold_float, :kindle_only, :frequency )
     end
 
 end

@@ -8,7 +8,7 @@ class Wishlist < ActiveRecord::Base
 
   # Before Filters
   before_save :extract_wishlist_details
-  before_save :set_wishlist_threshold
+  # before_save :set_wishlist_threshold
 
   serialize :last_scan_array
 
@@ -36,11 +36,13 @@ class Wishlist < ActiveRecord::Base
 
 
   def threshold_float
+    e = threshold.to_f/100
+    e = number_with_precision(e, precision: 2)
+    return e
   end
 
 
   def set_wishlist_threshold
-    binding.pry
   end
 
 
@@ -85,12 +87,21 @@ class Wishlist < ActiveRecord::Base
 
   def wishlist_scan
     wishlist_scrape_array = []
-    url = wishlist_kindle_only_url
+    url = wishlist_scan_url
     page = create_mechanize_page(url)
 
     wishlist_scrape(page, wishlist_scrape_array)
 
     return wishlist_scrape_array
+  end
+
+  def wishlist_scan_url
+    if kindle_only == true
+      url = wishlist_kindle_only_url
+    else
+      url = wishlist_full_url
+    end
+    return url
   end
 
 
