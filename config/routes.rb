@@ -14,7 +14,8 @@ Rails.application.routes.draw do
   resources :wishlists do
     member do
       get 'run_scan', to: 'wishlists#run_scan', as: :run_scan
+      get 'manual_send_email', to: 'wishlists#manual_send_update_email', as: :manual_send_update_email
     end
   end
-  get 'first_scan', to: 'wishlists#first_scan', as: :first_scan
+
 end

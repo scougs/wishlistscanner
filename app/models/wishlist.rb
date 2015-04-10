@@ -6,11 +6,14 @@ class Wishlist < ActiveRecord::Base
 # Relationships
   belongs_to :user
 
-  # Before Filters
-  before_save :extract_wishlist_details
-  # before_save :set_wishlist_threshold
+# Before Filters
+before_save :extract_wishlist_details
+# before_save :set_wishlist_threshold
 
-  serialize :last_scan_array
+serialize :last_scan_array
+
+# Validations
+  validates :wishlist_id, :wishlist_url, :kindle_only, :frequency, :name, presence: true, :on => :save
 
 
   def extract_wishlist_details
@@ -68,7 +71,7 @@ class Wishlist < ActiveRecord::Base
 
 
   def wishlist_run
-    wishlist_scrape_array = wishlist_scan
+    wishlist_scrape_array = scan_all_items
     items_under_threshold_array = []
 
     wishlist_scrape_array.each do |item|
@@ -85,7 +88,7 @@ class Wishlist < ActiveRecord::Base
   end
 
 
-  def wishlist_scan
+  def scan_all_items
     wishlist_scrape_array = []
     url = wishlist_scan_url
     page = create_mechanize_page(url)
@@ -94,6 +97,7 @@ class Wishlist < ActiveRecord::Base
 
     return wishlist_scrape_array
   end
+
 
   def wishlist_scan_url
     if kindle_only == true
@@ -169,6 +173,36 @@ class Wishlist < ActiveRecord::Base
   def wishlist_next_page(page, wishlist_scrape_array)
     next_page = page.link_with(:text => "Next→").click
     wishlist_scrape(next_page, wishlist_scrape_array)
+  end
+
+
+  def send_update_email
+    #send the update email
+    WishlistMailer.wishlist_results_email(self.id).deliver
+
+    #update the dates for last and next emails
+    update(last_email: DateTime.now)
+    update_next_update_email_date
+
+  end
+
+
+  def update_next_update_email_date
+    if frequency == "weekly"
+      update(next_email: last_email + 7.days)
+    elsif frequency == "daily"
+      update(next_email: last_email + 1.days)
+    end
+  end
+
+
+  def check_for_todays_updates
+    Wishlist.all.each do |wishlist|
+      if wishlist.next_email.today?
+        wishlist.run_scan
+        wishlist.send_update_email
+      end
+    end
   end
 
 end

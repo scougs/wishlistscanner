@@ -47,6 +47,8 @@ gem 'monetize'
 gem 'high_voltage', '~> 2.2.1'
 gem 'public_suffix'
 gem 'rails_12factor', group: :production
+gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
+gem 'premailer-rails'
 
 group :development, :test do
   gem 'pry-rails'

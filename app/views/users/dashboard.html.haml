@@ -23,8 +23,7 @@
 
         %h4.list-group-item-heading
           %a{:href => "#{wishlist.wishlist_full_url}", :target => "_blank"}
-            WISHLIST ID:
-            = wishlist.wishlist_id
+            = wishlist.name.upcase
 
         %p.list-group-item-text
           Threshold:

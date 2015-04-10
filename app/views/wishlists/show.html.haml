@@ -1,9 +1,13 @@
 = render partial: 'wishlists/edit_wishlist_modal'
 
-%h1 Wishlist Scan Details
+%h1
+  = @wishlist.name
+  Scan Details
 
 %br
 = link_to 'Run Scan Now', run_scan_wishlist_path(@wishlist.id), class: "btn btn-primary"
+%br
+= link_to 'Send Update Email', manual_send_update_email_wishlist_path(@wishlist.id), class: "btn btn-primary"
 %br
 
 = link_to 'Edit', edit_wishlist_path(@wishlist.id), class: "wishlist-edit-button btn btn-primary btn-sm"

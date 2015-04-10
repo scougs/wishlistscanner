@@ -63,19 +63,21 @@ class WishlistsController < ApplicationController
   def run_scan
     wishlist = Wishlist.find(params[:id])
     wishlist.wishlist_run
-    redirect_to dashboard_path(current_user), notice: 'Wishlist scan complete'
+    redirect_to wishlist_path(wishlist.id), notice: 'Wishlist scan complete'
   end
 
 
-  def first_scan
-    binding.pry
+  def manual_send_update_email
+    wishlist = Wishlist.find(params[:id])
+    wishlist.send_update_email
+    redirect_to wishlist_path(wishlist.id), notice: 'Update Email Sent'
   end
 
 
   private
 
     def wishlist_params
-      params.require(:wishlist).permit( :wishlist_id, :threshold, :wishlist_url, :last_scan_array, :last_scan_date, :threshold_float, :kindle_only, :frequency )
+      params.require(:wishlist).permit( :wishlist_id, :threshold, :wishlist_url, :last_scan_array, :last_scan_date, :threshold_float, :kindle_only, :frequency, :last_email, :next_email, :name )
     end
 
 end

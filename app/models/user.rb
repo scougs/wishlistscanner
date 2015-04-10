@@ -8,4 +8,7 @@ class User < ActiveRecord::Base
   has_many :wishlists
   accepts_nested_attributes_for :wishlists
 
+  # Validations
+  validates :email,  uniqueness: true
+
 end

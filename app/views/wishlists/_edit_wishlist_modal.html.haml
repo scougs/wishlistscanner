@@ -14,9 +14,18 @@
         = form_for(@wishlist) do |f|
           %fieldset
             .form-group
+              %p
+                Give your wishlist a name so you can easily identify it later.
+              = f.text_field :name, :class => "form-control input-lg floating-label", :placeholder => "Wishlist Name"
+            %br
+
+            .form-group
+              %p
+                Update the price limit for your wishlist if needed.
               .input-group
                 %span.input-group-addon#threshold_input £/$
                 = f.number_field :threshold_float, :class => "form-control input-lg floating-label", :placeholder => "Price Threshold - for example 5.00 or 0.99", :type => "number", :step => '0.01'
+              %br
 
             .form-group
               %p
@@ -26,12 +35,12 @@
                   %label
                     = f.check_box :kindle_only
                     Kindle Books Only
+              %br
 
             .form-group
               %p
-                How often would you like to receive an email update?
-              .input-group
-                = f.select(:frequency, [ 'Daily', 'Weekly'], {:prompt => 'Select One'}, { :class => 'form-control' })
+                Change how often you receive an email update?
+              = f.select(:frequency, [ 'Daily', 'Weekly'], {:prompt => 'Select One'}, { :class => 'form-control' })
 
           .form-group.modal-form-button
             %button.btn.btn-primary.btn-block.btn-lg{:type => "submit"}
