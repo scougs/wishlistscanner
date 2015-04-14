@@ -56,6 +56,14 @@ serialize :last_scan_array
   end
 
 
+  def run_create_tasks
+    #run wishlist scan
+    wishlist_run
+    #send update email
+    send_update_email
+  end
+
+
   def wishlist_show_items
     if last_scan_date.present?
       wishlist_scrape_array = last_scan_array
@@ -176,6 +184,14 @@ serialize :last_scan_array
   end
 
 
+  def run_scheduled_update
+    #run wishlist scan
+    wishlist_run
+    #send update email
+    send_update_email
+  end
+
+
   def send_update_email
     #send the update email
     WishlistMailer.wishlist_results_email(self.id).deliver
@@ -188,20 +204,10 @@ serialize :last_scan_array
 
 
   def update_next_update_email_date
-    if frequency == "weekly"
+    if frequency == "Weekly"
       update(next_email: last_email + 7.days)
-    elsif frequency == "daily"
+    elsif frequency == "Daily"
       update(next_email: last_email + 1.days)
-    end
-  end
-
-
-  def check_for_todays_updates
-    Wishlist.all.each do |wishlist|
-      if wishlist.next_email.today?
-        wishlist.run_scan
-        wishlist.send_update_email
-      end
     end
   end
 

@@ -60,13 +60,6 @@ class WishlistsController < ApplicationController
   end
 
 
-  def run_scan
-    wishlist = Wishlist.find(params[:id])
-    wishlist.wishlist_run
-    redirect_to wishlist_path(wishlist.id), notice: 'Wishlist scan complete'
-  end
-
-
   def manual_send_update_email
     wishlist = Wishlist.find(params[:id])
     wishlist.send_update_email
