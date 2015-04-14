@@ -69,7 +69,7 @@ class WishlistsController < ApplicationController
 
   def manual_send_update_email
     wishlist = Wishlist.find(params[:id])
-    wishlist.send_update_email
+    wishlist.run_scheduled_update
     redirect_to wishlist_path(wishlist.id), notice: 'Update Email Sent'
   end
 
