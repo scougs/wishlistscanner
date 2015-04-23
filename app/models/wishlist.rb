@@ -56,14 +56,6 @@ serialize :last_scan_array
   end
 
 
-  def run_create_tasks
-    #run wishlist scan
-    wishlist_run
-    #send update email
-    send_update_email
-  end
-
-
   def wishlist_show_items
     if last_scan_date.present?
       wishlist_scrape_array = last_scan_array
@@ -80,6 +72,7 @@ serialize :last_scan_array
 
   def wishlist_run
     wishlist_scrape_array = scan_all_items
+
     items_under_threshold_array = []
 
     wishlist_scrape_array.each do |item|
@@ -184,7 +177,7 @@ serialize :last_scan_array
   end
 
 
-  def run_scheduled_update
+  def run_scan_tasks
     #run wishlist scan
     wishlist_run
     #send update email

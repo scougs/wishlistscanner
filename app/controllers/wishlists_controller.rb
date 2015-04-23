@@ -62,7 +62,7 @@ class WishlistsController < ApplicationController
 
   def run_scan
     wishlist = Wishlist.find(params[:id])
-    wishlist.run_create_tasks
+    wishlist.run_scan_tasks
     redirect_to wishlist_path(wishlist.id), notice: 'Wishlist scan complete'
   end
 

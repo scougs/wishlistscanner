@@ -11,10 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150406124019) do
+ActiveRecord::Schema.define(version: 20150422161003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "scans", force: :cascade do |t|
+    t.integer  "total_items_scanned"
+    t.integer  "items_scanned_on_last_daily_scan"
+    t.datetime "last_scan_start_time"
+    t.datetime "last_scan_end_time"
+    t.integer  "emails_sent_during_last_daily_scan"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email"
