@@ -22,7 +22,7 @@ class ScansController < ApplicationController
 
 
   def create
-    Scan.create(user_params)
+    Scan.create(scan_params)
   end
 
 

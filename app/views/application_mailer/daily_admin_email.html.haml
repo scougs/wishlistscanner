@@ -1,0 +1,34 @@
+%h4
+  Daily System Admin Email -
+  = Date.today
+
+%h5
+  Details
+
+%p
+  %ul#DailySystemAdminEmailDetails
+    %li
+      %strong
+        Items Scanned:
+      = @scan.items_scanned_on_last_daily_scan
+    %li
+      %strong
+        Scan Start Time:
+      = @scan.last_scan_start_time
+    %li
+      %strong
+        Scan End Time:
+      = @scan.last_scan_end_time
+    %li
+      %strong
+        Scan Duration:
+      = @scan.duration
+    %li
+      %strong
+        Number Of Emails Sent During Scan:
+      = @scan.emails_sent_during_last_daily_scan
+    %li
+      %strong
+        Total Items Now Scanned by WishlistScanner:
+      = @scan.total_items_scanned
+

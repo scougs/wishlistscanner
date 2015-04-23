@@ -29,8 +29,14 @@ namespace :scheduled_task do
       total_items_scanned = Scan.last.total_items_scanned += items_scanned_on_last_daily_scan
     end
     #update the daily scan
-    binding.pry
-    #send daily admin email
+    @daily_scan_entry.update_attributes(
+                      :total_items_scanned => total_items_scanned,
+                      :items_scanned_on_last_daily_scan => items_scanned_on_last_daily_scan,
+                      :last_scan_start_time => last_scan_start_time,
+                      :last_scan_end_time => last_scan_end_time,
+                      :emails_sent_during_last_daily_scan =>emails_sent_during_last_daily_scan)
+    #send admin email
+    @daily_scan_entry.send_daily_admin_email
   end
 
 end
