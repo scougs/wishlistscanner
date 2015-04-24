@@ -11,8 +11,8 @@ namespace :scheduled_task do
     emails_sent_during_last_daily_scan = 0
 
     Wishlist.all.each do |wishlist|
-      # if wishlist.next_email.today? || wishlist.next_email == nil
-      if nil == nil
+      if wishlist.next_email.today? || wishlist.next_email == nil
+      # if nil == nil
         wishlist.run_scan_tasks
 
         items_scanned_on_last_daily_scan +=  wishlist.last_scan_array.count

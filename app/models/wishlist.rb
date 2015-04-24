@@ -56,8 +56,8 @@ serialize :last_scan_array
   end
 
 
-  def find_wishlist_title_from_amazon
-    page = Nokogiri::HTML(open(wishlist_scan_url))
+  def find_wishlist_title_from_amazon(url)
+    page = Nokogiri::HTML(open(url))
     title = page.css('span.a-size-extra-large').children[1].children.text.strip
     return title
   end

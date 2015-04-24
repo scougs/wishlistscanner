@@ -43,9 +43,17 @@ class WishlistsController < ApplicationController
 
   def create
     new_wishlist = wishlist_params
+
+    #set the wishlist threshold
     new_wishlist[:threshold] = (wishlist_params[:threshold_float].to_f*100).to_i
     new_wishlist.except!(:threshold_float)
+
+    #set the wishlist name
+    new_wishlist[:name] = find_wishlist_title_from_amazon(wishlist_params[:wishlist_url])
+
+    #create the new wishlist
     wishlist = current_user.wishlists.new(new_wishlist)
+
     if wishlist.save
       redirect_to dashboard_path(current_user), notice: 'Wishlist successfully created'
     else
