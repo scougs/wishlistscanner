@@ -56,6 +56,13 @@ serialize :last_scan_array
   end
 
 
+  def find_wishlist_title_from_amazon
+    page = Nokogiri::HTML(open(wishlist_scan_url))
+    title = page.css('span.a-size-extra-large').children[1].children.text.strip
+    return title
+  end
+
+
   def wishlist_show_items
     if last_scan_date.present?
       wishlist_scrape_array = last_scan_array

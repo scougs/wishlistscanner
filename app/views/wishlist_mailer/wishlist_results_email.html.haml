@@ -1,10 +1,22 @@
-%h1
+%h3
+  Scan Results For
   = @wishlist.name
 
-%h3
-  Scan Results
+%ul
+  %li
+    %strong Price Limit:
+    £/$
+    = @wishlist.threshold_to_float
+  %li
+    %strong Items In Wishlist:
+    = @wishlist.last_scan_array.count
+  %li
+    %strong Items Under Price Limit:
+    = @wishlist.wishlist_show_items.count
 
 %br
+%br
+
 %ul
   - @wishlist.wishlist_show_items.sort_by { |hsh| hsh[:price] }.each do |item|
     %li
