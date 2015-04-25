@@ -27,7 +27,7 @@ serialize :last_scan_array
 
 
   def extract_wishlist_id(url)
-    extracted_wishlist_id = url.match("/([A-Z0-9]{10,15})")[1]
+    extracted_wishlist_id = url.match("([A-Z0-9]{10,15})")[1]
     write_attribute(:wishlist_id, extracted_wishlist_id)
   end
 
