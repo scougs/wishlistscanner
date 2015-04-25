@@ -4,7 +4,7 @@ include ActionView::Helpers::NumberHelper
 class Wishlist < ActiveRecord::Base
 
 # Relationships
-  belongs_to :user
+belongs_to :user
 
 # Before Filters
 before_save :extract_wishlist_details
@@ -21,6 +21,7 @@ serialize :last_scan_array
       url = wishlist_id
       extract_wishlist_id(url)
       extract_wishlist_tld(url)
+      fetch_wishlist_name_from_amazon
     end
   end
 
@@ -35,6 +36,12 @@ serialize :last_scan_array
     extracted_wishlist_domain = url.match(".*\:\/\/?([^\/]+)")[1]
     extracted_wishlist_tld = PublicSuffix.parse(extracted_wishlist_domain).tld
     write_attribute(:wishlist_tld, extracted_wishlist_tld)
+  end
+
+
+  def fetch_wishlist_name_from_amazon
+    wishlist_name = Nokogiri::HTML(open(wishlist_full_url)).css('span.a-size-extra-large').children[1].children.text.strip
+    write_attribute(:name, wishlist_name)
   end
 
 
@@ -53,13 +60,6 @@ serialize :last_scan_array
     e = threshold.to_f/100
     e = number_with_precision(e, precision: 2)
     return e
-  end
-
-
-  def find_wishlist_title_from_amazon(url)
-    page = Nokogiri::HTML(open(url))
-    title = page.css('span.a-size-extra-large').children[1].children.text.strip
-    return title
   end
 
 

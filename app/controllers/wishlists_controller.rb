@@ -48,9 +48,6 @@ class WishlistsController < ApplicationController
     new_wishlist[:threshold] = (wishlist_params[:threshold_float].to_f*100).to_i
     new_wishlist.except!(:threshold_float)
 
-    #set the wishlist name
-    new_wishlist[:name] = Nokogiri::HTML(open(wishlist_params[:wishlist_id])).css('span.a-size-extra-large').children[1].children.text.strip
-
     #create the new wishlist
     wishlist = current_user.wishlists.new(new_wishlist)
 
