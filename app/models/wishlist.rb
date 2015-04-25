@@ -146,7 +146,7 @@ serialize :last_scan_array
       wishlist_item[:asin] = part_link.match("/([A-Z0-9]{10})")[1]
 
       #create the link to the book with the affiliate link
-      wishlist_item[:link] = "http://www.amazon.co.uk/dp" + part_link + "&tag=kindlescanner-21"
+      wishlist_item[:link] = "http://www.amazon.co.uk/dp" + part_link + "&tag=wishlistscanner-21"
 
       #extract the title
       wishlist_item[:title] = e.search('h5 > a').first.attributes["title"].value
