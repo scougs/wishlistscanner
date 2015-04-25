@@ -18,6 +18,8 @@
 //= require material
 //= require ripples
 //
+//= require segmentio
+//
 //= require_tree .
 
 

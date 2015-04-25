@@ -7,8 +7,8 @@
 %br
 = link_to 'Run Scan Now', run_scan_wishlist_path(@wishlist.id), class: "btn btn-primary"
 %br
-= link_to 'Send Update Email', manual_send_update_email_wishlist_path(@wishlist.id), class: "btn btn-primary"
-%br
+/ = link_to 'Send Update Email', manual_send_update_email_wishlist_path(@wishlist.id), class: "btn btn-primary"
+/ %br
 
 = link_to 'Edit', edit_wishlist_path(@wishlist.id), class: "wishlist-edit-button btn btn-primary btn-sm"
 
@@ -16,26 +16,27 @@
 
 - if @wishlist.last_scan_date.present?
   %h4
-    Wishlist Kindle Items:
+    %strong Items In Wishlist:
     = @wishlist.last_scan_array.count
 
   %h4
-    Wishlist Price Limit:
+    %strong Wishlist Price Limit:
+    £/$
     = @wishlist.threshold_to_float
 
   %h4
-    Wishlist Items Under Price Limit:
+    %strong Items Found Under Price Limit:
     = @wishlist_items.count
 
   %h4
-    Scan Type:
+    %strong Scan Type:
     - if @wishlist.kindle_only == true
       Kindle Books Only
     - else
       All Wishlist Items
 
   %h4
-    Email Frequency:
+    %strong Email Frequency:
     = @wishlist.frequency
 
   %br
