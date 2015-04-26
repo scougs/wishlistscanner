@@ -4,7 +4,7 @@ class WishlistMailer < ApplicationMailer
   if Rails.env.development?
     default from: "WishlistScanner[DEV] <info@wishlistscanner.com>"
   else
-    default from: "WishlistScanner System <info@wishlistscanner.com>"
+    default from: "WishlistScanner <info@wishlistscanner.com>"
   end
 
   layout 'wishlist_mailer'
