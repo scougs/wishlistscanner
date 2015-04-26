@@ -49,6 +49,7 @@ gem 'public_suffix'
 gem 'rails_12factor', group: :production
 gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
 gem 'premailer-rails'
+gem 'newrelic_rpm'
 
 group :development, :test do
   gem 'pry-rails'
