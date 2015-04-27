@@ -13,7 +13,7 @@ class ApplicationMailer < ActionMailer::Base
     @scan = Scan.find(scan_id)
     @admin_email = ENV['ADMIN_EMAIL']
 
-    mail to: @admin_email, subject: "WishlistScanner: Daily System Admin Email #{Date.today}"
+    mail to: @admin_email, subject: "WishlistScanner: Daily System Admin Email for #{Date.today.strftime("%a %d %b")}"
 
   end
 

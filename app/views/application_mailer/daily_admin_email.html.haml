@@ -14,11 +14,11 @@
     %li
       %strong
         Scan Start Time:
-      = @scan.last_scan_start_time
+      = @scan.last_scan_start_time.strftime("%a, %d %b %Y %l:%M %p")
     %li
       %strong
         Scan End Time:
-      = @scan.last_scan_end_time
+      = @scan.last_scan_end_time.strftime("%a, %d %b %Y %l:%M %p")
     %li
       %strong
         Scan Duration:
