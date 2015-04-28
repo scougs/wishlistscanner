@@ -51,6 +51,7 @@ gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
 gem 'premailer-rails'
 gem 'newrelic_rpm'
 gem 'mail_form'
+gem 'simple_form'
 
 group :development, :test do
   gem 'pry-rails'

@@ -48,7 +48,7 @@
             .form-group
               %p
                 How often would you like to receive an email update?
-              = f.select(:frequency, [ 'Daily', 'Weekly'], {:prompt => 'Select One'}, { :class => 'form-control' })
+              = f.select(:frequency, [ 'Daily', 'Weekly'], {:prompt => 'Select One'}, { :class => "form-control input-lg" })
 
           .form-group.modal-form-button
             %button.btn.btn-primary.btn-block.btn-lg{:type => "submit"}

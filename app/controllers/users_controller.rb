@@ -4,7 +4,6 @@ class UsersController < ApplicationController
     if current_user
       redirect_to dashboard_path(current_user)
     else
-      @home_screen_wishlist = Wishlist.new
       render page_path('home')
     end
   end
@@ -12,6 +11,7 @@ class UsersController < ApplicationController
 
   def dashboard
     @create_new_wishlist = Wishlist.new
+    @contact = Contact.new
   end
 
 

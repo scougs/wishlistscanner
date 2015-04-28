@@ -12,8 +12,9 @@
         = link_to('Dashboard', dashboard_path)
       %li
         = link_to('Add Wishlist', "#", class: "wishlist-link")
-      / %li
-      /   = link_to('Contact Us', contact_form_create_path)
+      %li
+        / = link_to('Contact Us', new_contact_path)
+        = link_to('Contact Us', "#", class: "contact-us-link")
 
 
     %ul.nav.navbar-nav.navbar-right
@@ -29,6 +30,13 @@
   $(function() {
     $('.wishlist-link').click(function() {
       $('#new_wishlist_modal').modal('show');
+      return false;
+    });
+  });
+
+  $(function() {
+    $('.contact-us-link').click(function() {
+      $('#contact_us_modal').modal('show');
       return false;
     });
   });

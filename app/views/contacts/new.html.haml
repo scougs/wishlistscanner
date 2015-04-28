@@ -1,0 +1,38 @@
+.contact-wrapper
+  .contact-body
+    .contact-header
+      %h3
+        Send Us A Message
+      %p
+        Use the form below to drop us some feedback, ask a question, give some feedback, or even highlight an issue you might have found.
+
+        = form_for @contact, :html => {:class => 'sky-form contact-form' } do |f|
+
+          %fieldset.contact-form-area
+            .row
+              %section
+                %label.input.form-group
+                  = f.text_field :name, hint: false, label: false, :required => true, :placeholder => "Your Name"
+
+            .row
+              %section
+                %label.input.form-group
+                  = f.text_field :email, :type => "email", :placeholder => "Your Email Address"
+
+            .row
+              %section
+                %label.select.form-group
+                  = f.select :topic, [['Select One...', ""], ['Question', 'Question'], ['Feedback', 'Feedback'], ['Issue', 'Issue'], ['Other', 'Other']], {}, {"data-required" => "true"}
+                  %i
+
+            .row
+              %section
+                %label.textarea.textarea-expandable.textarea-resizable.form-group
+                  = f.text_area :message, hint: false, label: false, :as => :text, :required => true, :placeholder => "Your Message", :id => "contact-form-message", :rows => "10"
+
+            .hidden
+              = f.text_field :nickname, :hint => 'Leave this field blank!'
+
+            .row.contact-form-submit-button
+              %section
+                = f.submit 'Send message', :class=> "btn btn-primary btn-lg"

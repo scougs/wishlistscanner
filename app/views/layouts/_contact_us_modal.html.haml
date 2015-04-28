@@ -1,0 +1,38 @@
+#contact_us_modal.modal
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+        %h2.modal-title Contact Us
+        %br
+        %br
+
+      .modal-body
+        %p
+          Use the form below to ask us a question, give some feedback, or even highlight an issue you might have found.
+        %br
+
+        = form_for @contact, :html => {:class => 'sky-form contact-form' } do |f|
+
+          %fieldset
+            .form-group
+              = f.text_field :name, :class => "form-control input-lg floating-label", :placeholder => "Your Name"
+
+            .form-group
+              = f.text_field :email, :class => "form-control input-lg floating-label", :type => "email", :placeholder => "Email"
+
+            .form-group
+              = f.select(:topic, [ 'Question', 'Feedback', 'Issue', 'Other'], {:prompt => 'Select One'}, { :class => "form-control input-lg" })
+
+            .form-group
+              = f.text_area :message, :class => "form-control input-lg floating-label", :rows => "10", :placeholder => "Your Message"
+
+            .hidden
+              = f.text_field :nickname, :hint => 'Leave this field blank!'
+
+          .form-group.modal-form-button
+            %button.btn.btn-primary.btn-block.btn-lg{:type => "submit"}
+              Send message
+
+      .modal-footer
+        %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
