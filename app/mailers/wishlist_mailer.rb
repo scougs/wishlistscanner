@@ -13,7 +13,7 @@ class WishlistMailer < ApplicationMailer
     @wishlist = Wishlist.find(wishlist_id)
     @user = @wishlist.user
 
-    mail to: @user.email, subject: "WishlistScanner: Results for #{@wishlist.name} on #{Date.today.strftime("%a %d %b")}"
+    mail to: @user.email, subject: "WishlistScanner: Results for #{@wishlist.name} on #{Date.today.strftime("%a %d %B")}"
 
   end
 

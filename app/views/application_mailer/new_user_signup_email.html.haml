@@ -1,0 +1,17 @@
+%h5
+  New User SignUp
+
+  %p
+    %ul
+      %li
+        %strong
+          User Email:
+        = @user.email
+      %li
+        %strong
+          Signed Up:
+        = @user.created_at.strftime("%a, %d %B %Y %l:%M %p")
+      %li
+        %strong
+          Current User Base:
+        = User.all.count

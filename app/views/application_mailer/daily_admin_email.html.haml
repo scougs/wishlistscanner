@@ -1,9 +1,9 @@
-%h4
-  Daily System Admin Email -
-  = Date.today
-
 %h5
-  Details
+  Daily System Admin Email -
+  = Date.today.strftime("%a %d %B")
+
+%h6
+  Daily Scan Details
 
 %p
   %ul#DailySystemAdminEmailDetails
@@ -14,11 +14,11 @@
     %li
       %strong
         Scan Start Time:
-      = @scan.last_scan_start_time.strftime("%a, %d %b %Y %l:%M %p")
+      = @scan.last_scan_start_time.strftime("%a, %d %B %Y %l:%M %p")
     %li
       %strong
         Scan End Time:
-      = @scan.last_scan_end_time.strftime("%a, %d %b %Y %l:%M %p")
+      = @scan.last_scan_end_time.strftime("%a, %d %B %Y %l:%M %p")
     %li
       %strong
         Scan Duration:
@@ -29,6 +29,30 @@
       = @scan.emails_sent_during_last_daily_scan
     %li
       %strong
-        Total Items Now Scanned by WishlistScanner:
+        Total Items Now Scanned:
       = @scan.total_items_scanned
+
+%br
+%br
+%h6
+  New Users
+
+%p
+  %ul
+    %li
+      %strong
+        New Users Created On
+        = Date.yesterday.strftime("%a %d %B")
+        :
+      = @new_users.count
+
+- if @new_users.count > 0
+  %p
+    %ul
+      - @new_users.each do |user|
+        %li
+          %strong Email address:
+          = user.email
+
+
 
