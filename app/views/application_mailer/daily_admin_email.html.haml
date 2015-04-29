@@ -43,7 +43,6 @@
       %strong
         New Users Created On
         = Date.yesterday.strftime("%a %d %B")
-        :
       = @new_users.count
 
 - if @new_users.count > 0
