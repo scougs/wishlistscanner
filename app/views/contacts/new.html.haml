@@ -28,7 +28,7 @@
             .row
               %section
                 %label.textarea.textarea-expandable.textarea-resizable.form-group
-                  = f.text_area :message, hint: false, label: false, :as => :text, :required => true, :placeholder => "Your Message", :id => "contact-form-message", :rows => "10"
+                  = f.text_area :message, hint: false, label: false, :as => :text, :required => true, :placeholder => "Your Message", :id => "contact-form-message", :rows => "10", :resize => none;
 
             .hidden
               = f.text_field :nickname, :hint => 'Leave this field blank!'
