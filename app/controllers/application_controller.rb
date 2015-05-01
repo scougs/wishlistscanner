@@ -6,9 +6,14 @@ class ApplicationController < ActionController::Base
   before_action :configure_devise_permitted_parameters, if: :devise_controller?
 
   before_filter :set_wishlist_variable
+  before_filter :set_contact_variable
 
   def set_wishlist_variable
     @create_new_wishlist = Wishlist.new
+  end
+
+  def set_contact_variable
+    @contact = Contact.new
   end
 
     protected
