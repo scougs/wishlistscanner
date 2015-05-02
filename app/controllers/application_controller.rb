@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_wishlist_variable
   before_filter :set_contact_variable
 
+
   def set_wishlist_variable
     @create_new_wishlist = Wishlist.new
   end
@@ -16,7 +17,7 @@ class ApplicationController < ActionController::Base
     @contact = Contact.new
   end
 
-    protected
+  protected
 
     def configure_devise_permitted_parameters
       registration_params = [:email, :password, :wishlist_id, :threshold]
