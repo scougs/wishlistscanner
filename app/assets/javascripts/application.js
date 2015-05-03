@@ -18,6 +18,8 @@
 //= require material
 //= require ripples
 //
+//= require rails.validations
+//
 //= require segmentio
 //
 //= require_tree .

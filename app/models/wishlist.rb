@@ -3,17 +3,36 @@ include ActionView::Helpers::NumberHelper
 
 class Wishlist < ActiveRecord::Base
 
-# Relationships
-belongs_to :user
+  # Relationships
+  belongs_to :user
 
-# Before Filters
-before_save :extract_wishlist_details
-# before_save :set_wishlist_threshold
+  # Before Filters
+  before_save :extract_wishlist_details
+  # before_save :set_wishlist_threshold
 
-serialize :last_scan_array
+  serialize :last_scan_array
 
-# Validations
+  # Validations
+  validate :url_contains_wishlist_id
   validates :wishlist_id, :wishlist_url, :kindle_only, :frequency, :name, presence: true, :on => :save
+
+
+
+  def url_contains_wishlist_id
+    errors.add(:wishlist_id, "Not a valid URL") if
+      wishlist_id_from_amazon_url_regex(wishlist_id) == nil
+  end
+
+
+  def extract_wishlist_id(url)
+    extracted_wishlist_id = wishlist_id_from_amazon_url_regex(url)[1]
+    write_attribute(:wishlist_id, extracted_wishlist_id)
+  end
+
+
+  def wishlist_id_from_amazon_url_regex(url)
+    url.match("([A-Z0-9]{10,15})")
+  end
 
 
   def extract_wishlist_details
@@ -23,12 +42,6 @@ serialize :last_scan_array
       extract_wishlist_tld(url)
       fetch_wishlist_name_from_amazon
     end
-  end
-
-
-  def extract_wishlist_id(url)
-    extracted_wishlist_id = url.match("([A-Z0-9]{10,15})")[1]
-    write_attribute(:wishlist_id, extracted_wishlist_id)
   end
 
 
@@ -65,9 +78,8 @@ serialize :last_scan_array
 
   def wishlist_show_items
     if last_scan_date.present?
-      wishlist_scrape_array = last_scan_array
       items_under_threshold_array = []
-      wishlist_scrape_array.each do |item|
+      last_scan_array.each do |item|
         if item[:price] != "Unavailable" && item[:price].cents <= threshold
           items_under_threshold_array << item
         end
@@ -210,5 +222,6 @@ serialize :last_scan_array
       update(next_email: last_email + 1.days)
     end
   end
+
 
 end
