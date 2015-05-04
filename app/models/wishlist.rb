@@ -25,8 +25,7 @@ class Wishlist < ActiveRecord::Base
 
 
   def extract_wishlist_id(url)
-    extracted_wishlist_id = wishlist_id_from_amazon_url_regex(url)[1]
-    write_attribute(:wishlist_id, extracted_wishlist_id)
+    write_attribute(:wishlist_id, wishlist_id_from_amazon_url_regex(url)[1])
   end
 
 
@@ -37,9 +36,8 @@ class Wishlist < ActiveRecord::Base
 
   def extract_wishlist_details
     if wishlist_tld.blank?
-      url = wishlist_id
-      extract_wishlist_id(url)
-      extract_wishlist_tld(url)
+      extract_wishlist_id(wishlist_id)
+      extract_wishlist_tld(wishlist_id)
       fetch_wishlist_name_from_amazon
     end
   end

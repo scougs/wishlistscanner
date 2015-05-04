@@ -52,7 +52,6 @@ gem 'premailer-rails'
 gem 'newrelic_rpm'
 gem 'mail_form'
 gem 'simple_form'
-gem 'client_side_validations', github: "DavyJonesLocker/client_side_validations", branch: "4-2-stable"
 
 
 group :development, :test do

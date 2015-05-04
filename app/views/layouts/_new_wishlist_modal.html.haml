@@ -15,10 +15,10 @@
         %p
           When that wishlist opens, you simply copy the web address from your web browser and paste it into the form below.
 
-        = form_for @create_new_wishlist, validate: true do |f|
+        = form_for @create_new_wishlist do |f|
           %fieldset
             .form-group
-              = f.text_field :wishlist_id, :class => "form-control input-lg floating-label", :placeholder => "Wishlist URL"
+              = f.text_field :wishlist_id, :class => "form-control input-lg floating-label", :placeholder => "Wishlist URL", :required => true
             %br
 
             / .form-group

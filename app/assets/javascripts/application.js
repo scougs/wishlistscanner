@@ -17,8 +17,7 @@
 //= require bootstrap
 //= require material
 //= require ripples
-//
-//= require rails.validations
+//= require parsley
 //
 //= require segmentio
 //
