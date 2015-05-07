@@ -221,4 +221,9 @@ class Wishlist < ActiveRecord::Base
   end
 
 
+  def self.created_yesterday
+    where(created_at: Date.yesterday..Date.yesterday.end_of_day)
+  end
+
+
 end

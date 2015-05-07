@@ -54,4 +54,17 @@
           = user.email
 
 
+%br
+%br
+%h6
+  New Wishlists
+
+%p
+  %ul
+    %li
+      %strong
+        New Wishlists Created On
+        = Date.yesterday.strftime("%a %d %B")
+      = @new_wishlists.count
+
 
