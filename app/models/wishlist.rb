@@ -8,7 +8,6 @@ class Wishlist < ActiveRecord::Base
 
   # Before Filters
   before_save :extract_wishlist_details
-  # before_save :set_wishlist_threshold
 
   serialize :last_scan_array
 
@@ -24,6 +23,15 @@ class Wishlist < ActiveRecord::Base
   end
 
 
+  def extract_wishlist_details
+    if wishlist_tld.blank?
+      extract_wishlist_tld(wishlist_id)
+      extract_wishlist_id(wishlist_id)
+      fetch_wishlist_name_from_amazon
+    end
+  end
+
+
   def extract_wishlist_id(url)
     write_attribute(:wishlist_id, wishlist_id_from_amazon_url_regex(url)[1])
   end
@@ -31,15 +39,6 @@ class Wishlist < ActiveRecord::Base
 
   def wishlist_id_from_amazon_url_regex(url)
     url.match("([A-Z0-9]{10,15})")
-  end
-
-
-  def extract_wishlist_details
-    if wishlist_tld.blank?
-      extract_wishlist_id(wishlist_id)
-      extract_wishlist_tld(wishlist_id)
-      fetch_wishlist_name_from_amazon
-    end
   end
 
 
