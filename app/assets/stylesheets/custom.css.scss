@@ -10,6 +10,17 @@
   color: #666;
 }
 
+#error_explanation {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.modal-error-box {
+  border: 1px solid red;
+  padding-top: 10px;
+}
+
+
 // Floating Label Modifications
 .form-control-wrapper .floating-label {
   opacity: 1;

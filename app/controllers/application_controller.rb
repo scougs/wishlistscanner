@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
 
 
   def set_wishlist_variable
-    @create_new_wishlist = Wishlist.new
+    @new_wishlist = Wishlist.new
   end
 
   def set_contact_variable

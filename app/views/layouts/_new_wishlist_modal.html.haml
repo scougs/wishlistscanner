@@ -15,7 +15,16 @@
         %p
           When that wishlist opens, you simply copy the web address from your web browser and paste it into the form below.
 
-        = form_for @create_new_wishlist do |f|
+        = form_for(@new_wishlist, remote: true, format: :json, html: {class: :new_wishlist_form}) do |f|
+
+          #error_explanation{:style => "display:none;"}
+            .modal-error-box
+              %ul
+                - if @new_wishlist.errors.any?
+                  - @new_wishlist.errors.full_messages.each do |msg|
+                    %li
+                      = msg
+
           %fieldset
             .form-group
               = f.text_field :wishlist_id, :class => "form-control input-lg floating-label", :placeholder => "Wishlist URL", :required => true

@@ -49,14 +49,18 @@ class WishlistsController < ApplicationController
     new_wishlist.except!(:threshold_float)
 
     #create the new wishlist
-    wishlist = current_user.wishlists.new(new_wishlist)
+    @new_wishlist = current_user.wishlists.new(new_wishlist)
 
-    if wishlist.save
-      redirect_to dashboard_path(current_user), notice: 'Wishlist successfully created'
-    else
-      redirect_to dashboard_path(current_user), alert: 'Error creating wishlist'
+    respond_to do |format|
+      if @new_wishlist.save
+        format.html { redirect_to dashboard_path(current_user), notice: 'Wishlist successfully created' }
+        format.json { render json: @new_wishlist, status: :created, location: @new_wishlist }
+      else
+        # redirect_to dashboard_path(current_user), alert: 'Error creating wishlist'
+        format.html { render action: "new" }
+        format.json { render json: @new_wishlist.errors, status: :unprocessable_entity }
+      end
     end
-
   end
 
 

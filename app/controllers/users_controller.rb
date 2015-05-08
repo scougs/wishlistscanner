@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
 
   def dashboard
-    @create_new_wishlist = Wishlist.new
+    @new_wishlist = Wishlist.new
     @contact = Contact.new
   end
 

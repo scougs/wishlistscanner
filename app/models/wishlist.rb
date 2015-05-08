@@ -6,20 +6,21 @@ class Wishlist < ActiveRecord::Base
   # Relationships
   belongs_to :user
 
-  # Before Filters
-  before_save :extract_wishlist_details
-
   serialize :last_scan_array
 
   # Validations
   validate :url_contains_wishlist_id
   validates :wishlist_id, :wishlist_url, :kindle_only, :frequency, :name, presence: true, :on => :save
 
+  # Before Filters
+  before_save :extract_wishlist_details
+
 
 
   def url_contains_wishlist_id
-    errors.add(:wishlist_id, "Not a valid URL") if
-      wishlist_id_from_amazon_url_regex(wishlist_id) == nil
+    if wishlist_id_from_amazon_url_regex(wishlist_id) == nil
+      errors.add(:wishlist_id, "The Wishlist URL is not valid as it doesn't have the ID needed.")
+    end
   end
 
 
