@@ -5,13 +5,8 @@
 $(document).ready ->
 
   $(document).bind "ajaxSuccess", "form.new_wishlist_form", (event, xhr, settings) ->
-    $new_wishlist_form = $(event.data)
-    $error_container = $("#error_explanation", $new_wishlist_form)
-    $error_container_ul = $("ul", $error_container)
-    $("<p>").html(xhr.responseJSON.title + " saved.").appendTo $new_wishlist_form
-    if $("li", $error_container_ul).length
-      $("li", $error_container_ul).remove()
-      $error_container.hide()
+    $('#new_wishlist_modal').modal 'hide'
+    window.location.reload(false);
 
   $(document).bind "ajaxError", "form.new_wishlist_form", (event, jqxhr, settings, exception) ->
     $new_wishlist_form = $(event.data)
