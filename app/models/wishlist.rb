@@ -150,27 +150,30 @@ class Wishlist < ActiveRecord::Base
       wishlist_item = {}
 
       #extract the url from the page
-      part_link = e.search('h5 > a').first.attributes["href"].value
+      part_link = e.search('h5 > a')
 
-      #extract the asin from the url
-      wishlist_item[:asin] = part_link.match("/([A-Z0-9]{10})")[1]
+      if !part_link.empty?
 
-      #create the link to the book with the affiliate link
-      wishlist_item[:link] = "http://www.amazon.co.uk/dp" + part_link + "&tag=wishlistscanner-21"
+        #extract the asin from the url
+        wishlist_item[:asin] = part_link.first.attributes["href"].value.match("/([A-Z0-9]{10})")[1]
 
-      #extract the title
-      wishlist_item[:title] = e.search('h5 > a').first.attributes["title"].value
+        #create the link to the book with the affiliate link
+        wishlist_item[:link] = "http://www.amazon.co.uk/dp/" + wishlist_item[:asin] + "?&tag=wishlistscanner-21"
 
-      #extract the price
-      price = e.search('span.a-color-price').first.children.first.text.chars.select(&:valid_encoding?).join.strip
-      if price == "Unavailable"
-        wishlist_item[:price] = price
-      else
-        Monetize.assume_from_symbol = true
-        wishlist_item[:price] = price.to_money
+        #extract the title
+        wishlist_item[:title] = e.search('h5 > a').first.attributes["title"].value
+
+        #extract the price
+        price = e.search('span.a-color-price').first.children.first.text.chars.select(&:valid_encoding?).join.strip
+        if price == "Unavailable"
+          wishlist_item[:price] = price
+        else
+          Monetize.assume_from_symbol = true
+          wishlist_item[:price] = price.to_money
+        end
+
+        wishlist_scrape_array << wishlist_item
       end
-
-      wishlist_scrape_array << wishlist_item
 
     end
 
