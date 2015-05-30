@@ -7,6 +7,7 @@ class Wishlist < ActiveRecord::Base
   belongs_to :user
 
   serialize :last_scan_array
+  serialize :new_items
 
   # Validations
   validate :url_contains_wishlist_id
@@ -98,11 +99,20 @@ class Wishlist < ActiveRecord::Base
       end
     end
 
+    if last_scan_array?
+      self.new_items = identify_new_items(wishlist_scrape_array)
+    end
+
     self.last_scan_array = wishlist_scrape_array
     self.last_scan_date = DateTime.now
     self.save
     return items_under_threshold_array
 
+  end
+
+
+  def identify_new_items(wishlist_scrape_array)
+    wishlist_scrape_array - last_scan_array
   end
 
 

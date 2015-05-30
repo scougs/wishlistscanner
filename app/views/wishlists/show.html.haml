@@ -39,6 +39,23 @@
     %strong Email Frequency:
     = @wishlist.frequency
 
+  - if @wishlist.new_items != nil
+    %br
+    .panel.panel-primary
+      .panel-heading
+        %h3.panel-title New Items Included Since Last Scan
+      .panel-body#wishlist-scan-results
+        - if !@wishlist.new_items.empty?
+          - @wishlist.new_items.sort_by { |hsh| hsh[:price] }.each do |item|
+            %ul#selector
+              %li
+                = link_to item[:title], item[:link], :target => "_blank"
+                %br
+                = item[:price]
+        - else
+          %p
+            No new items found.
+
   %br
   .panel.panel-primary
     .panel-heading
