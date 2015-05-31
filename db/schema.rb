@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150530124443) do
+ActiveRecord::Schema.define(version: 20150531160416) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,18 +45,19 @@ ActiveRecord::Schema.define(version: 20150530124443) do
   create_table "wishlists", force: :cascade do |t|
     t.string   "wishlist_id"
     t.integer  "threshold"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
     t.integer  "user_id"
     t.string   "wishlist_tld"
     t.datetime "last_scan_date"
     t.text     "last_scan_array"
     t.string   "frequency"
-    t.boolean  "kindle_only",     default: false
+    t.boolean  "kindle_only",                     default: false
     t.string   "name"
     t.datetime "last_email"
     t.datetime "next_email"
     t.text     "new_items"
+    t.text     "last_scan_items_under_threshold"
   end
 
 end

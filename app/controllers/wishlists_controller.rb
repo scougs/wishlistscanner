@@ -7,7 +7,6 @@ class WishlistsController < ApplicationController
 
   def show
     @wishlist = Wishlist.find(params[:id])
-    @wishlist_items = @wishlist.wishlist_show_items
   end
 
 
@@ -86,7 +85,7 @@ class WishlistsController < ApplicationController
   private
 
     def wishlist_params
-      params.require(:wishlist).permit( :wishlist_id, :threshold, :wishlist_url, :last_scan_array, :last_scan_date, :threshold_float, :kindle_only, :frequency, :last_email, :next_email, :name )
+      params.require(:wishlist).permit( :wishlist_id, :threshold, :wishlist_url, :last_scan_array, :last_scan_date, :threshold_float, :kindle_only, :frequency, :last_email, :next_email, :name, :new_items, :last_scan_items_under_threshold )
     end
 
 end

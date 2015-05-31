@@ -12,7 +12,6 @@ namespace :scheduled_task do
 
     Wishlist.all.each do |wishlist|
       if wishlist.next_email == nil || wishlist.next_email.to_date <= Date.today
-      # if nil == nil
         wishlist.run_scan_tasks
 
         items_scanned_on_last_daily_scan +=  wishlist.last_scan_array.count

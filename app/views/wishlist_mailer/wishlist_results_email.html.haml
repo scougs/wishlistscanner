@@ -12,15 +12,15 @@
     = @wishlist.last_scan_array.count
   %li
     %strong Items Under Price Limit:
-    = @wishlist.wishlist_show_items.count
+    = @wishlist.last_scan_items_under_threshold.count
 %br
 
-- if @wishlist.wishlist_show_items.count > 0
+- if @wishlist.last_scan_items_under_threshold.count > 0
 
   - if @wishlist.new_items != nil
     %br
     %h6
-      New Items Included Since Last Scan
+      New Items Found Below Price Limit Since Last Scan
 
     - if !@wishlist.new_items.empty?
       %ul
@@ -36,10 +36,10 @@
 
 
   %h6
-    Items Below Threshold
+    All Items Below Price Limit
   %br
   %ul
-    - @wishlist.wishlist_show_items.sort_by { |hsh| hsh[:price] }.each do |item|
+    - @wishlist.last_scan_items_under_threshold.sort_by { |hsh| hsh[:price] }.each do |item|
       %li
         = link_to item[:title], item[:link], :target => "_blank"
         %br

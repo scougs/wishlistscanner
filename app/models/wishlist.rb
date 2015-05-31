@@ -6,8 +6,10 @@ class Wishlist < ActiveRecord::Base
   # Relationships
   belongs_to :user
 
+  # Serialize
   serialize :last_scan_array
   serialize :new_items
+  serialize :last_scan_items_under_threshold
 
   # Validations
   validate :url_contains_wishlist_id
@@ -75,19 +77,6 @@ class Wishlist < ActiveRecord::Base
   end
 
 
-  def wishlist_show_items
-    if last_scan_date.present?
-      items_under_threshold_array = []
-      last_scan_array.each do |item|
-        if item[:price] != "Unavailable" && item[:price].cents <= threshold
-          items_under_threshold_array << item
-        end
-      end
-    end
-    return items_under_threshold_array
-  end
-
-
   def wishlist_run
     wishlist_scrape_array = scan_all_items
 
@@ -100,19 +89,20 @@ class Wishlist < ActiveRecord::Base
     end
 
     if last_scan_array?
-      self.new_items = identify_new_items(wishlist_scrape_array)
+      self.new_items = identify_new_items(items_under_threshold_array)
     end
 
     self.last_scan_array = wishlist_scrape_array
     self.last_scan_date = DateTime.now
+    self.last_scan_items_under_threshold = items_under_threshold_array
     self.save
-    return items_under_threshold_array
+    return self.last_scan_items_under_threshold
 
   end
 
 
-  def identify_new_items(wishlist_scrape_array)
-    wishlist_scrape_array - last_scan_array
+  def identify_new_items(items_under_threshold_array)
+    items_under_threshold_array - last_scan_items_under_threshold
   end
 
 
@@ -237,6 +227,20 @@ class Wishlist < ActiveRecord::Base
 
   def self.created_yesterday
     where(created_at: Date.yesterday..Date.yesterday.end_of_day)
+  end
+
+
+  def populate_last_scan_items_under_threshold
+    Wishlist.all.each do |wishlist|
+      items_under_threshold_array = []
+      wishlist.last_scan_array.each do |item|
+        if item[:price] != "Unavailable" && item[:price].cents <= wishlist.threshold
+          items_under_threshold_array << item
+        end
+      end
+      wishlist.last_scan_items_under_threshold = items_under_threshold_array
+      wishlist.save!
+    end
   end
 
 

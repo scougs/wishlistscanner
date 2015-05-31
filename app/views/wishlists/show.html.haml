@@ -26,7 +26,7 @@
 
   %h4
     %strong Items Found Under Price Limit:
-    = @wishlist_items.count
+    = @wishlist.last_scan_items_under_threshold.count
 
   %h4
     %strong Scan Type:
@@ -43,7 +43,7 @@
     %br
     .panel.panel-primary
       .panel-heading
-        %h3.panel-title New Items Included Since Last Scan
+        %h3.panel-title New Items Found Below Price Limit Since Last Scan
       .panel-body#wishlist-scan-results
         - if !@wishlist.new_items.empty?
           - @wishlist.new_items.sort_by { |hsh| hsh[:price] }.each do |item|
@@ -59,9 +59,9 @@
   %br
   .panel.panel-primary
     .panel-heading
-      %h3.panel-title Items Below Threshold
+      %h3.panel-title All Items Below Price Limit
     .panel-body#wishlist-scan-results
-      - @wishlist_items.sort_by { |hsh| hsh[:price] }.each do |item|
+      - @wishlist.last_scan_items_under_threshold.sort_by { |hsh| hsh[:price] }.each do |item|
         %ul#selector
           %li
             = link_to item[:title], item[:link], :target => "_blank"
