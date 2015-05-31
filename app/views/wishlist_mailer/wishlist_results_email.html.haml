@@ -13,6 +13,9 @@
   %li
     %strong Items Under Price Limit:
     = @wishlist.last_scan_items_under_threshold.count
+  %li
+    %strong New Items Found:
+    = @wishlist.new_items.count
 %br
 
 - if @wishlist.last_scan_items_under_threshold.count > 0

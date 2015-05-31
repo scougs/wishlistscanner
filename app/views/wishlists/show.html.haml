@@ -29,6 +29,10 @@
     = @wishlist.last_scan_items_under_threshold.count
 
   %h4
+    %strong New Items Found:
+    = @wishlist.new_items.count
+
+  %h4
     %strong Scan Type:
     - if @wishlist.kindle_only == true
       Kindle Books Only
