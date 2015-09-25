@@ -32,6 +32,11 @@
     %strong New Items Found:
     = @wishlist.new_items.count
 
+  - if @wishlist.consecutive_empty_scan_count > 0
+    %h4
+      %strong Consecutive Scans With No Items Under Price Limit:
+      = @wishlist.consecutive_empty_scan_count
+
   %h4
     %strong Scan Type:
     - if @wishlist.kindle_only == true

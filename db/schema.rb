@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150531160416) do
+ActiveRecord::Schema.define(version: 20150925204906) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 20150531160416) do
     t.datetime "next_email"
     t.text     "new_items"
     t.text     "last_scan_items_under_threshold"
+    t.integer  "consecutive_empty_scan_count",    default: 0
   end
 
 end

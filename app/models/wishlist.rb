@@ -17,7 +17,12 @@ class Wishlist < ActiveRecord::Base
 
   # Before Filters
   before_save :extract_wishlist_details
+  before_save :default_consecutive_empty_scan_count
 
+
+  def default_consecutive_empty_scan_count
+    consecutive_empty_scan_count ||= 0
+  end
 
 
   def url_contains_wishlist_id
@@ -198,29 +203,49 @@ class Wishlist < ActiveRecord::Base
 
 
   def run_scan_tasks
-    #run wishlist scan
     wishlist_run
-    #send update email
-    send_update_email
+    #check to see if there are items under the threshold
+    if !last_scan_items_under_threshold.empty?
+      send_update_email
+      update_last_email_date
+    else
+      increment_empty_scan_count
+
+      if consecutive_empty_scan_count == 1
+        WishlistMailer.wishlist_first_notify_email(self.id).deliver
+      elsif consecutive_empty_scan_count % 5 == 0
+        WishlistMailer.wishlist_we_are_still_here(self.id).deliver
+      end
+
+    end
+    update_next_update_email_date
+  end
+
+  def increment_empty_scan_count
+    self.consecutive_empty_scan_count += 1
+    save
   end
 
 
   def send_update_email
-    #send the update email
     WishlistMailer.wishlist_results_email(self.id).deliver
-
-    #update the dates for last and next emails
-    update(last_email: DateTime.now)
-    update_next_update_email_date
-
   end
 
 
+  def update_last_email_date
+    #set the last email sent time to current time
+    update(last_email: DateTime.now)
+  end
+
   def update_next_update_email_date
-    if frequency == "Weekly"
-      update(next_email: last_email + 7.days)
-    elsif frequency == "Daily"
-      update(next_email: last_email + 1.days)
+    if last_email == nil
+      update(last_email: DateTime.now)
+    else
+      if frequency == "Weekly"
+        update(next_email: last_email + 7.days)
+      elsif frequency == "Daily"
+        update(next_email: last_email + 1.days)
+      end
     end
   end
 

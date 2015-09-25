@@ -17,4 +17,22 @@ class WishlistMailer < ApplicationMailer
 
   end
 
+
+  def wishlist_first_notify_email(wishlist_id)
+    @wishlist = Wishlist.find(wishlist_id)
+    @user = @wishlist.user
+
+    mail to: @user.email, subject: "WishlistScanner: Update for #{@wishlist.name} on #{Date.today.strftime("%a %d %B")}"
+
+  end
+
+
+  def wishlist_we_are_still_here(wishlist_id)
+    @wishlist = Wishlist.find(wishlist_id)
+    @user = @wishlist.user
+
+    mail to: @user.email, subject: "WishlistScanner: We Are Still Here"
+
+  end
+
 end
