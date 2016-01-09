@@ -59,7 +59,8 @@ class Wishlist < ActiveRecord::Base
 
 
   def fetch_wishlist_name_from_amazon
-    wishlist_name = Nokogiri::HTML(open(wishlist_full_url)).css('span.a-size-extra-large').children[1].children.text.strip
+    binding.pry
+    wishlist_name = Nokogiri::HTML(open(wishlist_full_url)).css("#wl-list-info").children[3].children[1].text.strip
     write_attribute(:name, wishlist_name)
   end
 

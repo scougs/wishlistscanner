@@ -55,9 +55,9 @@ class WishlistsController < ApplicationController
         format.html { redirect_to dashboard_path(current_user), notice: 'Wishlist successfully created' }
         format.json { render json: @new_wishlist, status: :created, location: @new_wishlist }
       else
-        # redirect_to dashboard_path(current_user), alert: 'Error creating wishlist'
-        format.html { render action: "new" }
-        format.json { render json: @new_wishlist.errors, status: :unprocessable_entity }
+        redirect_to dashboard_path(current_user), alert: 'Error creating wishlist'
+        # format.html { render action: "new" }
+        # format.json { render json: @new_wishlist.errors, status: :unprocessable_entity }
       end
     end
   end
