@@ -170,11 +170,10 @@ class Wishlist < ActiveRecord::Base
 
         #extract the price
         price = e.search('span.a-color-price').first.children.first.text.chars.select(&:valid_encoding?).join.strip
-        binding.pry
         if price == "Unavailable"
           wishlist_item[:price] = price
-        elsif price < 2
-          wishlist_item[:price] = price
+        elsif price.length < 2
+          wishlist_item[:price] = "Unavailable"
         else
           Monetize.assume_from_symbol = true
           wishlist_item[:price] = price.to_money
@@ -255,14 +254,6 @@ class Wishlist < ActiveRecord::Base
 
   def self.created_yesterday
     where(created_at: Date.yesterday..Date.yesterday.end_of_day)
-  end
-
-
-  def is_vaild_price?(price)
-    if price.empty?
-      return false
-    elsif condition
-
   end
 
 
