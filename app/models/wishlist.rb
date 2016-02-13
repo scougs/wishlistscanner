@@ -88,7 +88,7 @@ class Wishlist < ActiveRecord::Base
     items_under_threshold_array = []
 
     wishlist_scrape_array.each do |item|
-      if item[:price] != "Unavailable" && item[:price].cents <= threshold
+      if !item[:price].is_a?(String) && item[:price].cents <= threshold
         items_under_threshold_array << item
       end
     end
@@ -172,11 +172,13 @@ class Wishlist < ActiveRecord::Base
         price = e.search('span.a-color-price').first.children.first.text.chars.select(&:valid_encoding?).join.strip
         if price == "Unavailable"
           wishlist_item[:price] = price
-        elsif price.length < 2
-          wishlist_item[:price] = "Unavailable"
         else
           Monetize.assume_from_symbol = true
-          wishlist_item[:price] = price.to_money
+          begin
+            wishlist_item[:price] = price.to_money
+          rescue Exception => e
+            wishlist_item[:price] = "Error"
+          end
         end
 
         wishlist_scrape_array << wishlist_item
@@ -261,7 +263,7 @@ class Wishlist < ActiveRecord::Base
     Wishlist.all.each do |wishlist|
       items_under_threshold_array = []
       wishlist.last_scan_array.each do |item|
-        if item[:price] != "Unavailable" && item[:price].cents <= wishlist.threshold
+        if !item[:price].is_a?(String) && item[:price].cents <= wishlist.threshold
           items_under_threshold_array << item
         end
       end
