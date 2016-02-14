@@ -170,8 +170,8 @@ class Wishlist < ActiveRecord::Base
 
         #extract the price
         price = e.search('span.a-color-price').first.children.first.text.chars.select(&:valid_encoding?).join.strip
-        if price == "Unavailable"
-          wishlist_item[:price] = price
+        if price == "Unavailable" || price.empty?
+          wishlist_item[:price] = "Unavailable"
         else
           Monetize.assume_from_symbol = true
           begin
@@ -180,7 +180,7 @@ class Wishlist < ActiveRecord::Base
             wishlist_item[:price] = "Error"
           end
         end
-
+        binding.pry
         wishlist_scrape_array << wishlist_item
       end
 
