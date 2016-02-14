@@ -180,7 +180,6 @@ class Wishlist < ActiveRecord::Base
             wishlist_item[:price] = "Error"
           end
         end
-        binding.pry
         wishlist_scrape_array << wishlist_item
       end
 
