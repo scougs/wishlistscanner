@@ -53,6 +53,7 @@ gem 'premailer-rails'
 gem 'newrelic_rpm'
 gem 'mail_form'
 gem 'simple_form'
+gem 'mailgun-ruby', :git => 'git://github.com/mailgun/mailgun-ruby', require: 'mailgun'
 
 
 group :development, :test do
