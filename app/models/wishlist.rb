@@ -200,8 +200,15 @@ class Wishlist < ActiveRecord::Base
 
 
   def wishlist_next_page(page, wishlist_scrape_array)
+    random_wait
     next_page = page.link_with(:text => "Next→").click
     wishlist_scrape(next_page, wishlist_scrape_array)
+  end
+
+
+  def random_wait
+    num_secs = 3 + rand(5)
+    sleep(num_secs)
   end
 
 
